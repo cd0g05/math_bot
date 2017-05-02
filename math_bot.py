@@ -4,7 +4,7 @@ import random
 
 # --------------- Helpers that build all of the responses ----------------------
 
-def get_question_and_answer(level=1):
+def get_question_and_answer(level=1):    #This function generates the random math questions
     #finds level
     #depending on level, asks a question
     #if correct, repeats
@@ -24,7 +24,7 @@ def get_question_and_answer(level=1):
             answer = n2 - n1
             return "{0} minus {1}".format(n2,n1), answer
     elif level == 3:
-        n1 = random.randint(1,10)
+        n1 = random.randint(1,10)                                                       
         n2 = random.randint(1,10)
         if n1 > n2:
             answer = n1 * n2
@@ -192,7 +192,7 @@ def handle_session_end_request():
         card_title, speech_output, None, should_end_session))
 
 
-def get_question(intent, session):
+def get_question(intent, session):            #This fetches the question from the get_question_and_answer()
     question,answer = get_question_and_answer(1)
 
     session_attributes = {"answer": answer, "level": 1, "score": 0}
@@ -204,7 +204,7 @@ def get_question(intent, session):
         intent['name'], speech_output, reprompt_text, should_end_session))
 
 
-def verify_answer(intent, session):
+def verify_answer(intent, session):     #this tells the alexa to ask the question, checks if the answer is correct, tracks points and levels, and ends the game when it is over.
     print(session)
     actual = session["attributes"]["answer"]
     guess = intent["slots"]["answer"]['value']
